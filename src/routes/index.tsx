@@ -7,6 +7,7 @@ import {
   Waves,
   Sparkles,
 } from 'lucide-react'
+import { ApiHealth } from '../components/ApiHealth'
 
 export const Route = createFileRoute('/')({ component: App })
 
@@ -112,6 +113,10 @@ function App() {
             </div>
           ))}
         </div>
+      </section>
+
+      <section className="py-16 px-6 max-w-7xl mx-auto">
+        <ApiHealth />
       </section>
     </div>
   )
