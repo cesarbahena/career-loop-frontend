@@ -1,8 +1,19 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { createServerFn } from '@tanstack/react-start'
 import { useState } from 'react'
 import { Button } from '../components/ui/button'
-import { getJobApplications } from '../lib/server-functions'
+import { db } from '../lib/db'
 import type { JobApplication } from '../lib/schema'
+import { jobApplications } from '../lib/schema'
+
+const getJobApplications = createServerFn({
+  method: 'GET',
+}).handler(async () => {
+  const applications = await db.query.jobApplications.findMany({
+    orderBy: [jobApplications.createdAt],
+  })
+  return applications
+})
 
 export const Route = createFileRoute('/applications')({
   loader: async () => {

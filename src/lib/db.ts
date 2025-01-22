@@ -1,8 +1,10 @@
-import { drizzle } from 'drizzle-orm/postgres-js'
-import postgres from 'postgres'
+import { drizzle } from 'drizzle-orm/node-postgres'
+import { Pool } from 'pg'
+import * as schema from './schema'
 
 // Database connection
-const connectionString = process.env.DATABASE_URL || 'postgresql://career_user:career_password@postgres-service:5432/career_loop'
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL || 'postgresql://career_user:career_password@postgres-service:5432/career_loop',
+})
 
-export const sql = postgres(connectionString)
-export const db = drizzle(sql)
+export const db = drizzle(pool, { schema })
